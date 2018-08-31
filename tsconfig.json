@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "target": "es5",
+    "module": "es2015",
+    "noImplicitAny": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "noImplicitReturns": true,
+    "removeComments": false,
+    "alwaysStrict": true,
+    "forceConsistentCasingInFileNames": true,
+    "pretty": true,
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
+    "lib": ["dom", "es2017", "scripthost"],
+    "jsx": "react",
+    "noEmitOnError": false,
+    "typeRoots": ["@types", "node_modules/@types"],
+    "outDir": "dist"
+  },
+  "include": ["src", "@types", "node_modules/@types"]
+}
