@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { db } from '../services/firebase';
+import db from '../services/firebase';
 
 const styles = require('./home.scss');
 
@@ -17,14 +17,13 @@ export class Home extends React.Component<{}, {}> {
   }
 
   getData = () => {
-    db.collection('testCollection')
-      .get()
-      .then(querySnapshot => {
-        querySnapshot.forEach((doc: any) => {
-          const data = doc.data();
-
-          console.log(`${doc.id} => ${JSON.stringify(data)}`);
-        });
-      });
+    // db.collection('testCollection')
+    //   .get()
+    //   .then(querySnapshot => {
+    //     querySnapshot.forEach((doc: any) => {
+    //       const data = doc.data();
+    //       console.log(`${doc.id} => ${JSON.stringify(data)}`);
+    //     });
+    //   });
   }
 }
