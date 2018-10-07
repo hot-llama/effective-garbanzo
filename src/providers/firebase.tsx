@@ -15,16 +15,16 @@ const config = {
   messagingSenderId: '206094690246'
 };
 
-const FirebaseContext = React.createContext({
+export const FirebaseContext = React.createContext({
   auth: null,
   store: null
 });
 
-export class Login extends React.Component<{}, IState> {
+export class Firebase extends React.Component<any, IState> {
   state: IState;
 
-  constructor() {
-    super(null);
+  constructor(props: any) {
+    super(props);
 
     firebase.initializeApp(config);
 
