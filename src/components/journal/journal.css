@@ -1,0 +1,10 @@
+.journal {
+  max-width: 600px;
+  padding: 1rem;
+}
+
+.journal-entry {
+  font-family: 'Catamaran', cursive;
+  text-align: center;
+  font-size: 2.5rem;
+}

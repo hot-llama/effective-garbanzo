@@ -1,5 +1,5 @@
-import firebase from 'firebase'
-import 'firebase/firestore'
+import * as firebase from 'firebase';
+import 'firebase/firestore';
 
 const config = {
   apiKey: 'AIzaSyC1hn4g8lpvOzjAysCC10vURY-X84oi8rU',
@@ -8,18 +8,21 @@ const config = {
   projectId: 'karton-app',
   storageBucket: 'karton-app.appspot.com',
   messagingSenderId: '206094690246'
-}
+};
 
 class FireStore {
+  private store: any;
+  private auth: any;
+
   constructor() {
-    firebase.initializeApp(config)
-    this.store = firebase.firestore
-    this.auth = firebase.auth
+    firebase.initializeApp(config);
+    this.store = firebase.firestore;
+    this.auth = firebase.auth;
   }
 
   get data() {
-    return this.store().collection('users')
+    return this.store().collection('users');
   }
 }
 
-export default new FireStore()
+export default new FireStore();
