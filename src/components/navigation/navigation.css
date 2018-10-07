@@ -1,0 +1,15 @@
+.navigation {
+  align-items: center;
+  background-color: var(--color-base-bg);
+  display: flex;
+  grid-area: header;
+  height: 2rem;
+  justify-content: space-evenly;
+  padding: 0.2rem;
+  width: 100vw;
+}
+
+.navigation > a {
+  color: var(--color-base-white);
+  text-decoration: none;
+}
