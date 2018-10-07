@@ -14,16 +14,31 @@ interface ILoginConsumerProps {
 }
 
 export class LoginConsumer extends React.Component<ILoginConsumerProps, {}> {
+  ui: any;
+
   constructor(props: ILoginConsumerProps) {
     super(props);
+
+    this.ui = new firebaseui.auth.AuthUI(this.props.firebase.auth());
   }
 
-  componentDidMount() {
+  componentDidUpdate() {
     const { firebase } = this.props;
+    if (firebase.initialized && !firebase.user) {
+      this.mountFbLogin();
+    }
+  }
 
-    const ui = new firebaseui.auth.AuthUI(firebase.auth());
+  mountFbLogin() {
+    this.ui.start('#firebase-login', {
+      callbacks: {
+        signInSuccessWithAuthResult: () => {
+          fb.auth().setPersistence(fb.auth.Auth.Persistence.LOCAL);
 
-    ui.start('#firebase-login', {
+          return false;
+        }
+      },
+      signInFlow: 'popup',
       signInOptions: [
         fb.auth.EmailAuthProvider.PROVIDER_ID,
         fb.auth.GoogleAuthProvider.PROVIDER_ID

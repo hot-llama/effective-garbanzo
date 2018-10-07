@@ -1,9 +1,11 @@
-import * as firebase from 'firebase';
+import * as fb from 'firebase';
 import * as React from 'react';
 
 interface IState {
   auth: any;
   store: any;
+  user?: any;
+  initialized: boolean;
 }
 
 const config = {
@@ -15,10 +17,14 @@ const config = {
   messagingSenderId: '206094690246'
 };
 
-export const FirebaseContext = React.createContext({
+const defaultContext: IState = {
   auth: null,
-  store: null
-});
+  store: null,
+  user: null,
+  initialized: false
+};
+
+export const FirebaseContext = React.createContext(defaultContext);
 
 export class Firebase extends React.Component<any, IState> {
   state: IState;
@@ -26,12 +32,30 @@ export class Firebase extends React.Component<any, IState> {
   constructor(props: any) {
     super(props);
 
-    firebase.initializeApp(config);
+    fb.initializeApp(config);
 
     this.state = {
-      auth: firebase.auth,
-      store: firebase.firestore
+      auth: fb.auth,
+      store: fb.firestore,
+      user: null,
+      initialized: false
     };
+  }
+
+  componentDidMount() {
+    fb.auth().onAuthStateChanged(user => {
+      console.log('USER', user);
+      if (user) {
+        this.setState({
+          user,
+          initialized: true
+        });
+      } else {
+        this.setState({
+          initialized: true
+        });
+      }
+    });
   }
 
   render() {
