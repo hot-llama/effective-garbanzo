@@ -1,6 +1,4 @@
 import { Link } from '@reach/router';
-import * as fb from 'firebase';
-import * as firebaseui from 'firebaseui';
 import * as React from 'react';
 
 import { FirebaseContext } from '../../providers/firebase';
@@ -14,23 +12,20 @@ interface ILoginConsumerProps {
 }
 
 export class LoginConsumer extends React.Component<ILoginConsumerProps, {}> {
-  ui: any;
-
-  constructor(props: ILoginConsumerProps) {
-    super(props);
-
-    this.ui = new firebaseui.auth.AuthUI(this.props.firebase.auth());
-  }
-
-  componentDidUpdate() {
-    const { firebase } = this.props;
-    if (firebase.initialized && !firebase.user) {
+  componentDidMount() {
+    if (this.props.firebase.initialized && !this.props.firebase.user) {
       this.mountFbLogin();
     }
   }
 
+  componentWillUnMount() {
+    this.props.firebase.ui.delete();
+  }
+
   mountFbLogin() {
-    this.ui.start('#firebase-login', {
+    const fb = this.props.firebase;
+
+    this.props.firebase.ui.start('#firebase-login', {
       callbacks: {
         signInSuccessWithAuthResult: () => {
           fb.auth().setPersistence(fb.auth.Auth.Persistence.LOCAL);
@@ -66,7 +61,7 @@ export class Login extends React.Component<IProps, {}> {
   render() {
     return (
       <FirebaseContext.Consumer>
-        {fb2 => <LoginConsumer firebase={fb2} />}
+        {fbContext => <LoginConsumer firebase={fbContext} />}
       </FirebaseContext.Consumer>
     );
   }

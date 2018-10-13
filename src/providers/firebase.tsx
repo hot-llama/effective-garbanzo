@@ -1,4 +1,5 @@
-import * as fb from 'firebase';
+import * as fb from 'firebase/app';
+import * as firebaseui from 'firebaseui';
 import * as React from 'react';
 
 interface IState {
@@ -6,6 +7,7 @@ interface IState {
   store: any;
   user?: any;
   initialized: boolean;
+  ui: any; //ui needs to be a global singleton. See issue: https://github.com/firebase/firebaseui-web/issues/216
 }
 
 const config = {
@@ -21,30 +23,33 @@ const defaultContext: IState = {
   auth: null,
   store: null,
   user: null,
-  initialized: false
+  initialized: false,
+  ui: null
 };
 
 export const FirebaseContext = React.createContext(defaultContext);
 
-export class Firebase extends React.Component<any, IState> {
+export class Firebase extends React.Component<{}, IState> {
   state: IState;
+  ui: any;
 
   constructor(props: any) {
     super(props);
 
     fb.initializeApp(config);
+    this.ui = new firebaseui.auth.AuthUI(fb.auth());
 
     this.state = {
       auth: fb.auth,
       store: fb.firestore,
       user: null,
-      initialized: false
+      initialized: false,
+      ui: this.ui
     };
   }
 
   componentDidMount() {
     fb.auth().onAuthStateChanged(user => {
-      console.log('USER', user);
       if (user) {
         this.setState({
           user,
