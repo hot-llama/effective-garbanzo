@@ -6,6 +6,7 @@ import { About } from './components/about/about';
 import { Journal } from './components/journal/journal';
 import { Login } from './components/login/login';
 import { Navigation } from './components/navigation/navigation';
+import { SleepCycle } from './features/sleep-cycle/sleep-cycle';
 
 import { Firebase } from './providers/firebase';
 
@@ -24,6 +25,7 @@ class Index extends React.Component<{}, {}> {
               <About path="/about" />
             </Router>
           </div>
+          <SleepCycle />
         </div>
       </Firebase>
     );
