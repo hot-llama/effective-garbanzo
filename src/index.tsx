@@ -1,4 +1,4 @@
-import { Link, Router } from '@reach/router';
+import { Router } from '@reach/router';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
