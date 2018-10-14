@@ -3,9 +3,7 @@ import * as React from 'react';
 
 import { FirebaseContext } from '../../providers/firebase';
 
-interface IProps {
-  path?: string;
-}
+import * as styles from './login.css';
 
 interface ILoginConsumerProps {
   firebase: any;
@@ -44,13 +42,17 @@ export class LoginConsumer extends React.Component<ILoginConsumerProps, {}> {
 
   render() {
     return (
-      <>
+      <div className={styles.loginContainer}>
         <Link to="/">Back</Link>
         <h1>Login page.</h1>
         <div id="firebase-login" />
-      </>
+      </div>
     );
   }
+}
+
+interface IProps {
+  path?: string;
 }
 
 export class Login extends React.Component<IProps, {}> {

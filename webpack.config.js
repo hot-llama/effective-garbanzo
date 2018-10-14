@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const webpackDashboard = require('webpack-dashboard/plugin');
+// const webpackDashboard = require('webpack-dashboard/plugin');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -59,7 +59,7 @@ module.exports = {
       template: 'index.html',
       filename: './index.html'
     }),
-    new CleanWebpackPlugin(['dist']),
-    new webpackDashboard()
+    new CleanWebpackPlugin(['dist'])
+    // new webpackDashboard()
   ]
 };
