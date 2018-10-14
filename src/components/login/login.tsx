@@ -5,10 +5,6 @@ import { FirebaseContext } from '../../providers/firebase';
 
 import * as styles from './login.css';
 
-interface IProps {
-  path?: string;
-}
-
 interface ILoginConsumerProps {
   firebase: any;
 }
@@ -53,6 +49,10 @@ export class LoginConsumer extends React.Component<ILoginConsumerProps, {}> {
       </div>
     );
   }
+}
+
+interface IProps {
+  path?: string;
 }
 
 export class Login extends React.Component<IProps, {}> {
