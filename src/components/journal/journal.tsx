@@ -29,6 +29,12 @@ export class JournalConsumer extends React.Component<IProps, IState> {
     this.getList();
   }
 
+  componentDidUpdate(prevProps: any, nextProps: any) {
+    if (!prevProps.firebase.initialized && this.props.firebase.initialized) {
+      this.getList();
+    }
+  }
+
   handleSubmit = (e: any) => {
     e.preventDefault();
 
@@ -43,19 +49,22 @@ export class JournalConsumer extends React.Component<IProps, IState> {
   }
 
   getList() {
-    this.props.firebase.store
-      .collection('testCollection')
-      .onSnapshot((querySnapshot: any) => {
-        const list: any[] = [];
+    if (this.props.firebase.initialized && this.props.firebase.user) {
+      this.props.firebase.store
+        .collection('testCollection')
+        .where('user', '==', this.props.firebase.user.uid)
+        .onSnapshot((querySnapshot: any) => {
+          const list: any[] = [];
 
-        querySnapshot.forEach((doc: any) => {
-          if (!!doc.data().value) {
-            list.push(doc);
-          }
+          querySnapshot.forEach((doc: any) => {
+            if (!!doc.data().value) {
+              list.push(doc);
+            }
+          });
+
+          this.setState({ list });
         });
-
-        this.setState({ list });
-      });
+    }
   }
 
   render() {
