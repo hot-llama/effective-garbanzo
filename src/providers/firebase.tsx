@@ -1,4 +1,5 @@
 import * as fb from 'firebase/app';
+import 'firebase/firestore';
 import * as firebaseui from 'firebaseui';
 import * as React from 'react';
 
@@ -38,10 +39,13 @@ export class Firebase extends React.Component<{}, IState> {
 
     fb.initializeApp(config);
     this.ui = new firebaseui.auth.AuthUI(fb.auth());
+    const store = fb.firestore();
+
+    store.settings({ timestampsInSnapshots: true });
 
     this.state = {
       auth: fb.auth,
-      store: fb.firestore,
+      store,
       user: null,
       initialized: false,
       ui: this.ui
@@ -49,6 +53,13 @@ export class Firebase extends React.Component<{}, IState> {
   }
 
   componentDidMount() {
+    this.state.store
+      .collection('testCollection')
+      .get()
+      .then((querySnapshot: any) => {
+        querySnapshot.forEach((doc: any) => console.log(doc.id, doc.data()));
+      });
+
     fb.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({
