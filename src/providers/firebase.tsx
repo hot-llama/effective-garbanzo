@@ -53,13 +53,6 @@ export class Firebase extends React.Component<{}, IState> {
   }
 
   componentDidMount() {
-    this.state.store
-      .collection('testCollection')
-      .get()
-      .then((querySnapshot: any) => {
-        querySnapshot.forEach((doc: any) => console.log(doc.id, doc.data()));
-      });
-
     fb.auth().onAuthStateChanged(user => {
       if (user) {
         this.setState({
