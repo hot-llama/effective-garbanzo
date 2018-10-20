@@ -68,6 +68,7 @@ export class Firebase extends React.Component<{}, IState> {
         });
       } else {
         this.setState({
+          user: null,
           initialized: true
         });
       }
